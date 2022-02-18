@@ -1,12 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useWordle } from 'hooks/useWordle';
 import { Attempt } from './Attempt';
-
-type Props = {
-  history: string[];
-  currentAttempt: string;
-  secret: string;
-};
 
 const StyledBoard = styled.div`
   display: grid;
@@ -15,7 +10,8 @@ const StyledBoard = styled.div`
   grid-gap: 12px;
 `;
 
-export const Board: React.FC<Props> = ({ history, currentAttempt, secret }) => {
+export const Board: React.FC = () => {
+  const { currentAttempt, history, secret } = useWordle();
   const rows = [];
 
   for (let i = 0; i < 6; i++) {

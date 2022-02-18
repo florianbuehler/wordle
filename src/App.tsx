@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
+import { GlobalStyles, theme } from 'styles';
+import { WordleProvider } from 'components/WordleProvider';
+import { Wordle } from 'context/wordleContext';
 import { Board } from 'components/Board';
 import { Keyboard } from 'components/Keyboard';
-import { GlobalStyles, theme } from 'styles';
 
-const Game = styled.main`
+const StyledGame = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -14,8 +16,8 @@ const App: React.FC = () => {
   const [history, setHistory] = useState<string[]>([]);
   const [currentAttempt, setCurrentAttempt] = useState<string>('');
 
-  const wordList = ['apple', 'piano', 'child', 'secret'];
   const secret = 'apple';
+  const wordList = ['apple', 'piano', 'child', 'secret'];
 
   const handleKeyPress = (key: string): void => {
     if (history.length === 6) {
@@ -59,14 +61,22 @@ const App: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   });
 
+  const wordle: Wordle = {
+    history: history,
+    currentAttempt: currentAttempt,
+    secret: secret
+  };
+
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <Game>
-        <h1>Wordle</h1>
-        <Board history={history} currentAttempt={currentAttempt} secret={secret} />
-        <Keyboard onKeyPress={handleKeyPress} />
-      </Game>
+      <WordleProvider wordle={wordle}>
+        <StyledGame>
+          <h1>Wordle</h1>
+          <Board />
+          <Keyboard onKeyPress={handleKeyPress} />
+        </StyledGame>
+      </WordleProvider>
     </ThemeProvider>
   );
 };
