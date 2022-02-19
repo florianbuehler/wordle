@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { useWordle } from 'hooks/useWordle';
+import { useGameState } from 'hooks/useGameState';
 import { Attempt } from './Attempt';
 
 const StyledBoard = styled.div`
@@ -11,7 +11,7 @@ const StyledBoard = styled.div`
 `;
 
 export const WordGrid: React.FC = () => {
-  const { currentAttempt, history, secret } = useWordle();
+  const { currentAttempt, history, secret } = useGameState();
   const rows = [];
 
   for (let i = 0; i < 6; i++) {

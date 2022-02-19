@@ -1,12 +1,12 @@
 import { createContext } from 'react';
 
-export type Wordle = {
+export type GameState = {
   currentAttempt: string;
   history: string[];
   secret: string;
 };
 
-export const WordleContext = createContext<Wordle>({
+export const GameStateContext = createContext<GameState>({
   currentAttempt: '',
   history: [],
   secret: ''

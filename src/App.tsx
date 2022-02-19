@@ -1,9 +1,9 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { GlobalStyles, theme } from 'styles';
-import { Wordle } from 'context/wordleContext';
+import { GameState } from 'context/gameStateContext';
 import { loadGameState, saveGameState } from 'persistence/gameState';
-import { WordleProvider } from 'components/WordleProvider';
+import { GameStateProvider } from 'components/GameStateProvider';
 import { WordGrid } from 'components/WordGrid';
 import { Keyboard } from 'components/Keyboard';
 
@@ -78,7 +78,7 @@ const App: React.FC = () => {
     return () => window.removeEventListener('keydown', handleKeyDown);
   });
 
-  const wordle: Wordle = {
+  const gameState: GameState = {
     history: history,
     currentAttempt: currentAttempt,
     secret: secret
@@ -87,13 +87,13 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <GlobalStyles />
-      <WordleProvider wordle={wordle}>
+      <GameStateProvider gameState={gameState}>
         <StyledGame>
           <h1>Wordle</h1>
           <WordGrid />
           <Keyboard onKeyPress={handleKeyPress} />
         </StyledGame>
-      </WordleProvider>
+      </GameStateProvider>
     </ThemeProvider>
   );
 };
