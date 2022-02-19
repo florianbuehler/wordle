@@ -16,11 +16,11 @@ export const WordGrid: React.FC = () => {
 
   for (let i = 0; i < 6; i++) {
     if (i < history.length) {
-      rows.push(<Attempt key={i} attempt={history[i]} secret={secret} isSolved={true} />);
+      rows.push(<Attempt key={i} attempt={history[i]} secret={secret} isFinished={true} />);
     } else if (i === history.length) {
-      rows.push(<Attempt key={i} attempt={currentAttempt} secret={secret} isSolved={false} />);
+      rows.push(<Attempt key={i} attempt={currentAttempt} secret={secret} isFinished={false} />);
     } else {
-      rows.push(<Attempt key={i} attempt="" secret={secret} isSolved={false} />);
+      rows.push(<Attempt key={i} attempt="" secret={secret} isFinished={false} />);
     }
   }
 

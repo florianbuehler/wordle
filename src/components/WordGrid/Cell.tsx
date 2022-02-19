@@ -6,16 +6,16 @@ type Props = {
   index: number;
   attempt: string;
   secret: string;
-  isSolved: boolean;
+  isAttemptFinished: boolean;
 };
 
 type WrapperProps = {
-  isSolved: boolean;
+  animate: boolean;
 };
 
 type SurfaceProps = {
   index: number;
-  isSolved: boolean;
+  isAttemptFinished: boolean;
 };
 
 type FrontProps = {
@@ -45,6 +45,22 @@ const Wrapper = styled.div<WrapperProps>`
   font-weight: bold;
   perspective: 1000px;
   user-select: none;
+  animation: ${({ animate }) => animate && `press 100ms ease-out`};
+
+  @keyframes press {
+    from {
+      opacity: 0.5;
+      transform: scale(0.95);
+    }
+    50% {
+      opacity: 0.85;
+      transform: scale(1.1);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
 `;
 
 const Surface = styled.div<SurfaceProps>`
@@ -54,7 +70,7 @@ const Surface = styled.div<SurfaceProps>`
   width: 100%;
   height: 100%;
   transition-delay: ${({ index }) => `${index * 300}ms`};
-  transform: ${({ isSolved }) => (isSolved ? 'rotateX(180deg)' : '')};
+  transform: ${({ isAttemptFinished }) => (isAttemptFinished ? 'rotateX(180deg)' : '')};
 `;
 
 const Front = styled.div<FrontProps>`
@@ -94,19 +110,19 @@ const Back = styled.div<BackProps>`
     getBgColor(theme, correctLetter, attemptLetter, secret)};
 `;
 
-export const Cell: React.FC<Props> = ({ index, attempt, secret, isSolved }) => {
+export const Cell: React.FC<Props> = ({ index, attempt, secret, isAttemptFinished }) => {
   let content;
   const hasLetter = attempt[index] !== undefined;
 
-  if (attempt[index] !== undefined) {
+  if (hasLetter) {
     content = attempt[index].toUpperCase();
   } else {
     content = '';
   }
 
   return (
-    <Wrapper isSolved={isSolved}>
-      <Surface index={index} isSolved={isSolved}>
+    <Wrapper animate={!isAttemptFinished && hasLetter}>
+      <Surface index={index} isAttemptFinished={isAttemptFinished}>
         <Front hasLetter={hasLetter}>{content}</Front>
         <Back correctLetter={secret[index]} attemptLetter={attempt[index]} secret={secret}>
           {content}
