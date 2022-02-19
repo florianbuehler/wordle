@@ -1,6 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Theme } from 'styles';
+import { getBgColor } from 'styles';
 
 type Props = {
   index: number;
@@ -23,21 +23,9 @@ type FrontProps = {
 };
 
 type BackProps = {
-  correctLetter: string;
-  attemptLetter: string;
+  attempt: string;
   secret: string;
-};
-
-const getBgColor = (theme: Theme, correctLetter: string, attemptLetter: string, secret: string): string => {
-  if (correctLetter === attemptLetter) {
-    return theme.colors.green;
-  }
-
-  if (secret.indexOf(attemptLetter) >= 0) {
-    return theme.colors.yellow;
-  }
-
-  return theme.colors.darkGrey;
+  index: number;
 };
 
 const Wrapper = styled.div<WrapperProps>`
@@ -104,10 +92,8 @@ const Back = styled.div<BackProps>`
   left: 0;
   z-index: 1;
   transform: rotateX(180deg);
-  background-color: ${({ theme, correctLetter, attemptLetter, secret }) =>
-    getBgColor(theme, correctLetter, attemptLetter, secret)};
-  border-color: ${({ theme, correctLetter, attemptLetter, secret }) =>
-    getBgColor(theme, correctLetter, attemptLetter, secret)};
+  background-color: ${({ attempt, secret, index, theme }) => getBgColor(attempt, secret, index, theme)};
+  border-color: ${({ attempt, secret, index, theme }) => getBgColor(attempt, secret, index, theme)};
 `;
 
 export const Cell: React.FC<Props> = ({ index, attempt, secret, isAttemptFinished }) => {
@@ -124,7 +110,7 @@ export const Cell: React.FC<Props> = ({ index, attempt, secret, isAttemptFinishe
     <Wrapper animate={!isAttemptFinished && hasLetter}>
       <Surface index={index} isAttemptFinished={isAttemptFinished}>
         <Front hasLetter={hasLetter}>{content}</Front>
-        <Back correctLetter={secret[index]} attemptLetter={attempt[index]} secret={secret}>
+        <Back attempt={attempt} secret={secret} index={index}>
           {content}
         </Back>
       </Surface>

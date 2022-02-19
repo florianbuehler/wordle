@@ -4,10 +4,11 @@ import { KeyboardKey } from './KeyboardKey';
 type Props = {
   letters: string;
   isLast: boolean;
+  keyColors: Map<string, string>;
   onKeyPress: (key: string) => void;
 };
 
-export const KeyboardRow: React.FC<Props> = ({ letters, isLast, onKeyPress }) => {
+export const KeyboardRow: React.FC<Props> = ({ letters, isLast, keyColors, onKeyPress }) => {
   const buttons = [];
 
   if (isLast) {
@@ -20,7 +21,7 @@ export const KeyboardRow: React.FC<Props> = ({ letters, isLast, onKeyPress }) =>
 
   for (const letter of letters) {
     buttons.push(
-      <KeyboardKey key={letter} keyboardKey={letter} onKeyPress={onKeyPress}>
+      <KeyboardKey key={letter} keyboardKey={letter} bgColor={keyColors.get(letter)} onKeyPress={onKeyPress}>
         {letter.toUpperCase()}
       </KeyboardKey>
     );
