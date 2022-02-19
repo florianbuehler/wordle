@@ -10,7 +10,7 @@ const StyledBoard = styled.div`
   grid-gap: 12px;
 `;
 
-export const Board: React.FC = () => {
+export const WordGrid: React.FC = () => {
   const { currentAttempt, history, secret } = useWordle();
   const rows = [];
 
