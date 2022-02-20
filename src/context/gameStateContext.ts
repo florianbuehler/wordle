@@ -4,10 +4,14 @@ export type GameState = {
   currentAttempt: string;
   history: string[];
   secret: string;
+  onCurrentAttemptChanged: (newCurrentAttempt: string) => void;
+  onHistoryChanged: (newHistory: string[]) => void;
 };
 
 export const GameStateContext = createContext<GameState>({
   currentAttempt: '',
   history: [],
-  secret: ''
+  secret: '',
+  onCurrentAttemptChanged: () => null,
+  onHistoryChanged: () => null
 });
