@@ -4,7 +4,8 @@ import { Icon } from 'semantic-ui-react';
 import { ThemeName } from 'styles';
 
 type Props = {
-  theme: ThemeName;
+  themeName: ThemeName;
+  onReload: () => void;
   onThemeToggled: () => void;
 };
 
@@ -13,24 +14,23 @@ const StyledControlPanel = styled.aside`
   top: 25px;
   right: 25px;
 
-  display: flex;
-  align-items: center;
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  grid-gap: 0.75rem;
 
   > div {
     cursor: pointer;
+    color: ${({ theme }) => theme.fontColor};
   }
 `;
 
-export const ControlPanel: React.FC<Props> = ({ theme, onThemeToggled }) => {
+export const ControlPanel: React.FC<Props> = ({ themeName, onReload, onThemeToggled }) => {
   return (
     <StyledControlPanel>
-      <div onClick={onThemeToggled}>
-        {theme === 'lightTheme' ? (
-          <Icon name="sun" color="yellow" size="large" />
-        ) : (
-          <Icon name="moon" color="yellow" size="large" />
-        )}
+      <div onClick={onReload}>
+        <Icon name="redo" />
       </div>
+      <div onClick={onThemeToggled}>{themeName === 'lightTheme' ? <Icon name="moon" /> : <Icon name="sun" />}</div>
     </StyledControlPanel>
   );
 };

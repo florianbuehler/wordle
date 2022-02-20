@@ -33,7 +33,6 @@ export const Board: React.FC<Props> = ({ loadedFromHistory }) => {
   const { currentAttempt, history, secret, onCurrentAttemptChanged, onHistoryChanged } = useGameState();
   const [keyColors, setKeyColors] = useState<Map<string, Color>>(new Map<string, Color>());
   const animatingRef = useRef<boolean>(false);
-
   const wordList = ['apple', 'piano', 'child', 'secret', 'water', 'avoid'];
 
   useEffect(() => {
@@ -41,6 +40,12 @@ export const Board: React.FC<Props> = ({ loadedFromHistory }) => {
       waitForAnimation(history);
     }
   }, [loadedFromHistory]);
+
+  useEffect(() => {
+    if (history.length === 0) {
+      setKeyColors(calculateKeyColors(history, secret));
+    }
+  }, [history]);
 
   useEffect(() => {
     window.addEventListener('keydown', handleKeyDown);

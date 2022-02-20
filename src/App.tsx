@@ -21,11 +21,10 @@ const StyledGame = styled.main`
 
 const App: React.FC = () => {
   const [theme, setTheme] = useState<ThemeName>('darkTheme');
+  const [secret, setSecret] = useState<string>('apple');
   const [history, setHistory] = useState<string[]>([]);
   const [currentAttempt, setCurrentAttempt] = useState<string>('');
   const loadedRef = useRef<boolean>(false);
-
-  const secret = 'apple';
 
   useEffect(() => {
     if (loadedRef.current) {
@@ -42,7 +41,7 @@ const App: React.FC = () => {
 
   useEffect(() => {
     saveGameState(secret, history);
-  }, [history]);
+  }, [secret, history]);
 
   const toggleTheme = (): void => {
     switch (theme) {
@@ -55,6 +54,11 @@ const App: React.FC = () => {
       default:
         throw Error(`Theme "${theme}" is not a valid theme.`);
     }
+  };
+
+  const resetGame = (): void => {
+    setSecret('apple'); // TODO get a new secret
+    setHistory([]);
   };
 
   const gameState: GameState = {
@@ -71,7 +75,7 @@ const App: React.FC = () => {
       <GameStateProvider gameState={gameState}>
         <StyledGame>
           <Title>Wordle</Title>
-          <ControlPanel theme={theme} onThemeToggled={toggleTheme} />
+          <ControlPanel themeName={theme} onReload={resetGame} onThemeToggled={toggleTheme} />
           <Board loadedFromHistory={loadedRef.current} />
         </StyledGame>
       </GameStateProvider>
