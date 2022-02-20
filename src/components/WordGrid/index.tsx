@@ -7,7 +7,7 @@ const StyledBoard = styled.div`
   display: grid;
   grid-template-rows: repeat(6, 60px);
   grid-template-columns: repeat(5, 60px);
-  grid-gap: 12px;
+  grid-gap: 8px;
 `;
 
 export const WordGrid: React.FC = () => {

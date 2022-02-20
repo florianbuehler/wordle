@@ -1,18 +1,12 @@
-import { Theme } from './theme';
+import { Color, Theme } from './theme';
 
 export const getBgColor = (attempt: string, secret: string, index: number, theme: Theme): string => {
-  if (secret[index] === attempt[index]) {
-    return theme.colors.green;
-  }
+  const bgColor = getBgColorName(attempt, secret, index);
 
-  if (secret.indexOf(attempt[index]) >= 0) {
-    return theme.colors.yellow;
-  }
-
-  return theme.colors.darkGrey;
+  return theme.colors[bgColor];
 };
 
-export const getBgColorName = (attempt: string, secret: string, index: number): string => {
+export const getBgColorName = (attempt: string, secret: string, index: number): Color => {
   if (secret[index] === attempt[index]) {
     return 'green';
   }

@@ -1,10 +1,12 @@
 import React, { useEffect, useState, useRef } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
-import { GlobalStyles, theme } from 'styles';
+import { getTheme, GlobalStyles, ThemeName } from 'styles';
 import { GameState } from 'context/gameStateContext';
 import { loadGameState, saveGameState } from 'persistence/gameState';
 import { GameStateProvider } from 'components/GameStateProvider';
+import { Title } from 'components/Title';
 import { Board } from 'components/Board';
+import { ControlPanel } from './components/ControlPanel';
 
 const StyledGame = styled.main`
   display: flex;
@@ -12,11 +14,13 @@ const StyledGame = styled.main`
   align-items: center;
 
   h1 {
+    margin-top: 2rem;
     margin-bottom: 4rem;
   }
 `;
 
 const App: React.FC = () => {
+  const [theme, setTheme] = useState<ThemeName>('darkTheme');
   const [history, setHistory] = useState<string[]>([]);
   const [currentAttempt, setCurrentAttempt] = useState<string>('');
   const loadedRef = useRef<boolean>(false);
@@ -40,6 +44,19 @@ const App: React.FC = () => {
     saveGameState(secret, history);
   }, [history]);
 
+  const toggleTheme = (): void => {
+    switch (theme) {
+      case 'lightTheme':
+        setTheme('darkTheme');
+        break;
+      case 'darkTheme':
+        setTheme('lightTheme');
+        break;
+      default:
+        throw Error(`Theme "${theme}" is not a valid theme.`);
+    }
+  };
+
   const gameState: GameState = {
     currentAttempt: currentAttempt,
     history: history,
@@ -49,11 +66,12 @@ const App: React.FC = () => {
   };
 
   return (
-    <ThemeProvider theme={theme}>
+    <ThemeProvider theme={getTheme(theme)}>
       <GlobalStyles />
       <GameStateProvider gameState={gameState}>
         <StyledGame>
-          <h1>Wordle</h1>
+          <Title>Wordle</Title>
+          <ControlPanel theme={theme} onThemeToggled={toggleTheme} />
           <Board loadedFromHistory={loadedRef.current} />
         </StyledGame>
       </GameStateProvider>

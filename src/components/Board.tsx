@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
-import { getBgColorName } from 'styles/utils';
 import { useGameState } from 'hooks/useGameState';
+import { Color, getBgColorName } from 'styles';
 import { WordGrid } from './WordGrid';
 import { Keyboard } from './Keyboard';
 
@@ -15,8 +15,8 @@ const StyledBoard = styled.div`
   justify-items: center;
 `;
 
-const calculateKeyColors = (history: string[], secret: string) => {
-  const keyColors = new Map<string, string>();
+const calculateKeyColors = (history: string[], secret: string): Map<string, Color> => {
+  const keyColors = new Map<string, Color>();
 
   for (const attempt of history) {
     for (let i = 0; i < attempt.length; i++) {
@@ -31,10 +31,22 @@ const calculateKeyColors = (history: string[], secret: string) => {
 
 export const Board: React.FC<Props> = ({ loadedFromHistory }) => {
   const { currentAttempt, history, secret, onCurrentAttemptChanged, onHistoryChanged } = useGameState();
-  const [keyColors, setKeyColors] = useState<Map<string, string>>(() => new Map());
+  const [keyColors, setKeyColors] = useState<Map<string, Color>>(new Map<string, Color>());
   const animatingRef = useRef<boolean>(false);
 
   const wordList = ['apple', 'piano', 'child', 'secret', 'water', 'avoid'];
+
+  useEffect(() => {
+    if (loadedFromHistory) {
+      waitForAnimation(history);
+    }
+  }, [loadedFromHistory]);
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleKeyDown);
+
+    return () => window.removeEventListener('keydown', handleKeyDown);
+  });
 
   const waitForAnimation = (nextHistory: string[]) => {
     if (animatingRef.current) {
@@ -47,12 +59,6 @@ export const Board: React.FC<Props> = ({ loadedFromHistory }) => {
       setKeyColors(calculateKeyColors(nextHistory, secret));
     }, 1700);
   };
-
-  useEffect(() => {
-    if (loadedFromHistory) {
-      waitForAnimation(history);
-    }
-  }, [loadedFromHistory]);
 
   const handleKeyPress = (key: string): void => {
     if (history.length === 6 || animatingRef.current) {
@@ -91,12 +97,6 @@ export const Board: React.FC<Props> = ({ loadedFromHistory }) => {
 
     handleKeyPress(e.key);
   };
-
-  useEffect(() => {
-    window.addEventListener('keydown', handleKeyDown);
-
-    return () => window.removeEventListener('keydown', handleKeyDown);
-  });
 
   return (
     <StyledBoard>

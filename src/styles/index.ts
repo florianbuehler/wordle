@@ -1,5 +1,5 @@
 export { GlobalStyles } from './globalStyles';
-export { theme } from './theme';
-export { getBgColor } from './utils';
+export { getTheme } from './theme';
+export { getBgColor, getBgColorName } from './utils';
 
-export type { Theme } from './theme';
+export type { Color, Theme, ThemeName } from './theme';

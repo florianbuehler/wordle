@@ -1,9 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
+import { Color } from 'styles';
 import { KeyboardRow } from './KeyboardRow';
 
 type Props = {
-  keyColors: Map<string, string>;
+  keyColors: Map<string, Color>;
   onKeyPress: (key: string) => void;
 };
 

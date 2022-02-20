@@ -8,7 +8,7 @@ export const GlobalStyles = createGlobalStyle`
     box-sizing: border-box;
     font-family: 'Nunito', sans-serif;
     color: #fff;
-    background: #111;
+    background: ${({ theme }) => theme.bgColor};
   }
 
   ul {

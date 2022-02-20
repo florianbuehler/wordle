@@ -62,7 +62,6 @@ const Surface = styled.div<SurfaceProps>`
 `;
 
 const Front = styled.div<FrontProps>`
-  border: 2px solid #444;
   backface-visibility: hidden;
   position: absolute;
   top: 0;
@@ -74,8 +73,11 @@ const Front = styled.div<FrontProps>`
   align-items: center;
   justify-content: center;
   z-index: 2;
-  background-color: ${({ theme }) => theme.colors.black};
-  border-color: ${({ hasLetter, theme }) => (hasLetter ? theme.colors.grey : '')};
+  color: ${({ theme }) => theme.cell.color};
+  background-color: ${({ theme }) => theme.cell.bgColor};
+  border-width: 2px;
+  border-style: solid;
+  border-color: ${({ hasLetter, theme }) => (hasLetter ? theme.colors.grey : theme.cell.borderColor)};
 `;
 
 const Back = styled.div<BackProps>`
