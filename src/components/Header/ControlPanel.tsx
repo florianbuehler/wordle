@@ -14,7 +14,11 @@ const StyledControlPanel = styled.aside`
 
   > div {
     cursor: pointer;
-    color: ${({ theme }) => theme.fontColor};
+    color: ${({ theme }) => theme.primary};
+
+    &:hover {
+      transform: scale(1.15);
+    }
   }
 `;
 

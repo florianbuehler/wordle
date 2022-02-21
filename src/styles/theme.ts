@@ -5,6 +5,8 @@ type Colors = { [color in Color]: string };
 export type ThemeName = 'lightTheme' | 'darkTheme';
 
 export type Theme = {
+  primary: string;
+
   fontColor: string;
   bgColor: string;
 
@@ -27,6 +29,8 @@ const colors: Colors = {
 };
 
 const lightTheme: Theme = {
+  primary: '#538d4e',
+
   fontColor: '#111',
   bgColor: '#f6f7f8',
 
@@ -40,6 +44,8 @@ const lightTheme: Theme = {
 };
 
 const darkTheme: Theme = {
+  primary: '#b59f3b',
+
   fontColor: '#fff',
   bgColor: '#111',
 

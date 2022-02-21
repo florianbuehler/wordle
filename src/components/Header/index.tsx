@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { ThemeName } from 'styles';
+import { Instructions } from './Instructions';
 import { ControlPanel } from './ControlPanel';
 
 export type HeaderProps = {
@@ -14,22 +15,24 @@ const StyledHeader = styled.header`
   top: 0;
   z-index: 999;
   height: 5rem;
-  margin-bottom: 3rem;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-
-  color: ${({ theme }) => theme.fontColor};
+  margin-bottom: 5rem;
 
   h1 {
-    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+    margin: 0 25%;
+    color: ${({ theme }) => theme.primary};
+    border-bottom: ${({ theme }) => `2px solid ${theme.primary}`};
   }
 `;
 
 export const Header: React.FC<HeaderProps> = (props) => {
   return (
     <StyledHeader>
+      <Instructions />
       <h1>Wordle</h1>
       <ControlPanel {...props} />
     </StyledHeader>
