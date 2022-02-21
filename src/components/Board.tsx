@@ -37,6 +37,7 @@ export const Board: React.FC<Props> = ({ loadedFromHistory }) => {
 
   useEffect(() => {
     if (loadedFromHistory) {
+      console.log('here');
       waitForAnimation(history);
     }
   }, [loadedFromHistory]);

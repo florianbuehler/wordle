@@ -1,18 +1,12 @@
 import React from 'react';
 import styled from 'styled-components';
 import { Icon } from 'semantic-ui-react';
-import { ThemeName } from 'styles';
-
-type Props = {
-  themeName: ThemeName;
-  onReload: () => void;
-  onThemeToggled: () => void;
-};
+import { HeaderProps } from './index';
 
 const StyledControlPanel = styled.aside`
   position: absolute;
-  top: 25px;
-  right: 25px;
+  top: 20px;
+  right: 20px;
 
   display: grid;
   grid-template-columns: repeat(2, auto);
@@ -24,7 +18,7 @@ const StyledControlPanel = styled.aside`
   }
 `;
 
-export const ControlPanel: React.FC<Props> = ({ themeName, onReload, onThemeToggled }) => {
+export const ControlPanel: React.FC<HeaderProps> = ({ themeName, onReload, onThemeToggled }) => {
   return (
     <StyledControlPanel>
       <div onClick={onReload}>

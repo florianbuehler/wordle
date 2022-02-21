@@ -4,19 +4,13 @@ import { getTheme, GlobalStyles, ThemeName } from 'styles';
 import { GameState } from 'context/gameStateContext';
 import { loadGameState, saveGameState } from 'persistence/gameState';
 import { GameStateProvider } from 'components/GameStateProvider';
-import { Title } from 'components/Title';
+import { Header } from 'components/Header';
 import { Board } from 'components/Board';
-import { ControlPanel } from './components/ControlPanel';
 
 const StyledGame = styled.main`
   display: flex;
   flex-direction: column;
   align-items: center;
-
-  h1 {
-    margin-top: 2rem;
-    margin-bottom: 4rem;
-  }
 `;
 
 const App: React.FC = () => {
@@ -73,9 +67,8 @@ const App: React.FC = () => {
     <ThemeProvider theme={getTheme(theme)}>
       <GlobalStyles />
       <GameStateProvider gameState={gameState}>
+        <Header themeName={theme} onReload={resetGame} onThemeToggled={toggleTheme} />
         <StyledGame>
-          <Title>Wordle</Title>
-          <ControlPanel themeName={theme} onReload={resetGame} onThemeToggled={toggleTheme} />
           <Board loadedFromHistory={loadedRef.current} />
         </StyledGame>
       </GameStateProvider>
