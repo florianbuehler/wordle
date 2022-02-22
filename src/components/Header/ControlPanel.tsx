@@ -12,7 +12,7 @@ const StyledControlPanel = styled.aside`
   grid-template-columns: repeat(2, auto);
   grid-gap: 0.75rem;
 
-  > div {
+  > i {
     cursor: pointer;
     color: ${({ theme }) => theme.primary};
 
@@ -25,10 +25,12 @@ const StyledControlPanel = styled.aside`
 export const ControlPanel: React.FC<HeaderProps> = ({ themeName, onReload, onThemeToggled }) => {
   return (
     <StyledControlPanel>
-      <div onClick={onReload}>
-        <Icon name="redo" />
-      </div>
-      <div onClick={onThemeToggled}>{themeName === 'lightTheme' ? <Icon name="moon" /> : <Icon name="sun" />}</div>
+      <Icon name="redo" onClick={onReload} id="test" />
+      {themeName === 'lightTheme' ? (
+        <Icon name="moon" onClick={onThemeToggled} />
+      ) : (
+        <Icon name="sun" onClick={onThemeToggled} />
+      )}
     </StyledControlPanel>
   );
 };

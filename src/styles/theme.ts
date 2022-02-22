@@ -1,4 +1,4 @@
-export type Color = 'white' | 'yellow' | 'green' | 'lightGrey' | 'grey' | 'darkGrey';
+export type Color = 'white' | 'yellow' | 'green' | 'lightGrey' | 'grey' | 'darkGrey' | 'black';
 
 type Colors = { [color in Color]: string };
 
@@ -25,7 +25,8 @@ const colors: Colors = {
   lightGrey: '#888',
   green: '#538d4e',
   yellow: '#b59f3b',
-  white: '#fff'
+  white: '#fff',
+  black: '#111'
 };
 
 const lightTheme: Theme = {

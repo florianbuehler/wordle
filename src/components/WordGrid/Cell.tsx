@@ -94,6 +94,7 @@ const Back = styled.div<BackProps>`
   left: 0;
   z-index: 1;
   transform: rotateX(180deg);
+  color: ${({ theme }) => theme.colors.white};
   background-color: ${({ attempt, secret, index, theme }) => getBgColor(attempt, secret, index, theme)};
   border-color: ${({ attempt, secret, index, theme }) => getBgColor(attempt, secret, index, theme)};
 `;
