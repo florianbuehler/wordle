@@ -1,5 +1,6 @@
 import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
+import { PlayerStatus } from 'context/gameStateContext';
 import { useGameState } from 'hooks/useGameState';
 import { Color, getBgColorName } from 'styles';
 import { WordGrid } from './WordGrid';
@@ -30,14 +31,21 @@ const calculateKeyColors = (history: string[], secret: string): Map<string, Colo
 };
 
 export const Board: React.FC<Props> = ({ loadedFromHistory }) => {
-  const { currentAttempt, history, secret, onCurrentAttemptChanged, onHistoryChanged } = useGameState();
+  const {
+    playerStatus,
+    currentAttempt,
+    history,
+    secret,
+    onPlayerStatusChanged,
+    onCurrentAttemptChanged,
+    onHistoryChanged
+  } = useGameState();
   const [keyColors, setKeyColors] = useState<Map<string, Color>>(new Map<string, Color>());
   const animatingRef = useRef<boolean>(false);
   const wordList = ['apple', 'piano', 'child', 'secret', 'water', 'avoid'];
 
   useEffect(() => {
     if (loadedFromHistory) {
-      console.log('here');
       waitForAnimation(history);
     }
   }, [loadedFromHistory]);
@@ -67,7 +75,12 @@ export const Board: React.FC<Props> = ({ loadedFromHistory }) => {
   };
 
   const handleKeyPress = (key: string): void => {
-    if (history.length === 6 || animatingRef.current) {
+    if (
+      history.length === 6 ||
+      animatingRef.current ||
+      playerStatus === PlayerStatus.PlayerWon ||
+      playerStatus === PlayerStatus.PlayerLost
+    ) {
       return;
     }
     const letter = key.toLowerCase();
@@ -79,14 +92,25 @@ export const Board: React.FC<Props> = ({ loadedFromHistory }) => {
         alert('Not in my thesaurus');
         return;
       }
-      if (history.length === 5 && currentAttempt !== secret) {
-        alert(secret);
-      }
 
       const newHistory = [...history, currentAttempt];
+      waitForAnimation(newHistory);
       onHistoryChanged(newHistory);
       onCurrentAttemptChanged('');
-      waitForAnimation(newHistory);
+
+      // player won
+      if (currentAttempt === secret) {
+        setTimeout(() => {
+          onPlayerStatusChanged(PlayerStatus.PlayerWon);
+        }, 1800);
+      }
+
+      // player lost
+      if (history.length === 5 && currentAttempt !== secret) {
+        setTimeout(() => {
+          onPlayerStatusChanged(PlayerStatus.PlayerLost);
+        }, 1800);
+      }
     } else if (letter === 'backspace') {
       onCurrentAttemptChanged(currentAttempt.slice(0, currentAttempt.length - 1));
     } else if (/^[a-z]$/.test(letter)) {

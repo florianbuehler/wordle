@@ -3,7 +3,7 @@ export const loadGameState = (secret: string): string[] | undefined => {
   try {
     data = JSON.parse(localStorage.getItem('data')!);
   } catch (e) {
-    console.log(`Error occurred loading the game state: ${e}`);
+    console.error(`Error occurred loading the game state: ${e}`);
   }
   if (data != null) {
     if (data.secret === secret) {
@@ -20,6 +20,6 @@ export const saveGameState = (secret: string, history: string[]): void => {
   try {
     localStorage.setItem('data', data);
   } catch (e) {
-    console.log(`Error occurred saving the game state: ${e}`);
+    console.error(`Error occurred saving the game state: ${e}`);
   }
 };

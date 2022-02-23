@@ -1,11 +1,13 @@
-import React, { useEffect, useState, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import styled, { ThemeProvider } from 'styled-components';
 import { getTheme, GlobalStyles, ThemeName } from 'styles';
-import { GameState } from 'context/gameStateContext';
+import { GameState, PlayerStatus } from 'context/gameStateContext';
 import { loadGameState, saveGameState } from 'persistence/gameState';
 import { GameStateProvider } from 'components/GameStateProvider';
 import { Header } from 'components/Header';
 import { Board } from 'components/Board';
+import { WinModal } from 'components/WinModal';
+import { LossModal } from 'components/LossModal';
 
 const StyledGame = styled.main`
   display: flex;
@@ -15,6 +17,7 @@ const StyledGame = styled.main`
 
 const App: React.FC = () => {
   const [theme, setTheme] = useState<ThemeName>('darkTheme');
+  const [playerStatus, setPlayerStatus] = useState<PlayerStatus>(PlayerStatus.PlayerStillPlaying);
   const [secret, setSecret] = useState<string>('apple');
   const [history, setHistory] = useState<string[]>([]);
   const [currentAttempt, setCurrentAttempt] = useState<string>('');
@@ -28,6 +31,19 @@ const App: React.FC = () => {
     loadedRef.current = true;
 
     const savedHistory = loadGameState(secret);
+
+    // if the last element in the loaded history matches the secret, the player already won
+    if (savedHistory && savedHistory[savedHistory.length - 1] === secret) {
+      setHistory([]);
+      return;
+    }
+
+    // if the loaded history contains 6 elements, the player already lost
+    if (savedHistory?.length === 6) {
+      setHistory([]);
+      return;
+    }
+
     if (savedHistory) {
       setHistory(savedHistory);
     }
@@ -53,12 +69,15 @@ const App: React.FC = () => {
   const resetGame = (): void => {
     setSecret('apple'); // TODO get a new secret
     setHistory([]);
+    setPlayerStatus(PlayerStatus.PlayerStillPlaying);
   };
 
   const gameState: GameState = {
+    playerStatus: playerStatus,
     currentAttempt: currentAttempt,
     history: history,
     secret: secret,
+    onPlayerStatusChanged: (newPlayerStatus) => setPlayerStatus(newPlayerStatus),
     onCurrentAttemptChanged: (newCurrentAttempt) => setCurrentAttempt(newCurrentAttempt),
     onHistoryChanged: (newHistory) => setHistory(newHistory)
   };
@@ -71,6 +90,8 @@ const App: React.FC = () => {
         <StyledGame>
           <Board loadedFromHistory={loadedRef.current} />
         </StyledGame>
+        <WinModal />
+        <LossModal />
       </GameStateProvider>
     </ThemeProvider>
   );
