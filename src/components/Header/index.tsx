@@ -11,15 +11,7 @@ export type HeaderProps = {
 };
 
 const StyledHeader = styled.header`
-  position: sticky;
-  top: 0;
-  z-index: 999;
   height: 4.5rem;
-  margin-bottom: 2.5rem;
-
-  @media (min-width: 768px) {
-    margin-bottom: 4.5rem;
-  }
 
   h1 {
     display: flex;

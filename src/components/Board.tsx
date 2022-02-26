@@ -10,7 +10,7 @@ type Props = {
   loadedFromHistory: boolean;
 };
 
-const StyledBoard = styled.div`
+const StyledBoard = styled.main`
   display: grid;
   grid-gap: 3rem;
   justify-items: center;

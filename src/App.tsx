@@ -6,12 +6,16 @@ import { loadGameState, saveGameState } from 'persistence/gameState';
 import { GameStateProvider } from 'components/GameStateProvider';
 import { Header } from 'components/Header';
 import { Board } from 'components/Board';
+import { Footer } from 'components/Footer';
 import { WinModal } from 'components/WinModal';
 import { LossModal } from 'components/LossModal';
 
-const StyledGame = styled.main`
-  display: flex;
-  flex-direction: column;
+const GameLayout = styled.div`
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: min-content auto min-content;
+  grid-template-columns: auto;
+  grid-gap: 3rem;
   align-items: center;
 `;
 
@@ -86,10 +90,13 @@ const App: React.FC = () => {
     <ThemeProvider theme={getTheme(theme)}>
       <GlobalStyles />
       <GameStateProvider gameState={gameState}>
-        <Header themeName={theme} onReload={resetGame} onThemeToggled={toggleTheme} />
-        <StyledGame>
+        <GameLayout>
+          <Header themeName={theme} onReload={resetGame} onThemeToggled={toggleTheme} />
+          {/*<StyledGame>*/}
           <Board loadedFromHistory={loadedRef.current} />
-        </StyledGame>
+          {/*</StyledGame>*/}
+          <Footer />
+        </GameLayout>
         <WinModal onPlayAgain={resetGame} />
         <LossModal onTryAgain={resetGame} />
       </GameStateProvider>
