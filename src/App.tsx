@@ -90,8 +90,8 @@ const App: React.FC = () => {
         <StyledGame>
           <Board loadedFromHistory={loadedRef.current} />
         </StyledGame>
-        <WinModal />
-        <LossModal />
+        <WinModal onPlayAgain={resetGame} />
+        <LossModal onTryAgain={resetGame} />
       </GameStateProvider>
     </ThemeProvider>
   );
