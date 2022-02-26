@@ -1,15 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
-import { Color } from 'styles/theme';
+import { BgColor } from 'styles/theme';
 
 type Props = {
   keyboardKey: string;
-  bgColor?: Color;
+  bgColor?: BgColor;
   onKeyPress: (key: string) => void;
 };
 
 type StyledProps = {
-  bgColor: Color;
+  bgColor: BgColor;
 } & React.ButtonHTMLAttributes<HTMLButtonElement>;
 
 const Key = styled.button<StyledProps>`

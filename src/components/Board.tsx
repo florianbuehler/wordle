@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { PlayerStatus } from 'context/gameStateContext';
 import { useGameState } from 'hooks/useGameState';
-import { Color, getBgColorName } from 'styles';
+import { BgColor, getBgColorName } from 'styles';
 import { WordGrid } from './WordGrid';
 import { Keyboard } from './Keyboard';
 
@@ -16,8 +16,8 @@ const StyledBoard = styled.div`
   justify-items: center;
 `;
 
-const calculateKeyColors = (history: string[], secret: string): Map<string, Color> => {
-  const keyColors = new Map<string, Color>();
+const calculateKeyColors = (history: string[], secret: string): Map<string, BgColor> => {
+  const keyColors = new Map<string, BgColor>();
 
   for (const attempt of history) {
     for (let i = 0; i < attempt.length; i++) {
@@ -30,7 +30,7 @@ const calculateKeyColors = (history: string[], secret: string): Map<string, Colo
   return keyColors;
 };
 
-const getKeyColors = (attempt: string, secret: string, i: number, currentKeyColor: Color | undefined): Color => {
+const getKeyColors = (attempt: string, secret: string, i: number, currentKeyColor: BgColor | undefined): BgColor => {
   const bgColorBasedOnAttempt = getBgColorName(attempt, secret, i);
 
   // when calculating the key color we need to take the best guess into account
@@ -57,7 +57,7 @@ export const Board: React.FC<Props> = ({ loadedFromHistory }) => {
     onCurrentAttemptChanged,
     onHistoryChanged
   } = useGameState();
-  const [keyColors, setKeyColors] = useState<Map<string, Color>>(new Map<string, Color>());
+  const [keyColors, setKeyColors] = useState<Map<string, BgColor>>(new Map<string, BgColor>());
   const animatingRef = useRef<boolean>(false);
   const wordList = ['apple', 'piano', 'child', 'secret', 'water', 'avoid'];
 

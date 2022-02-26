@@ -1,4 +1,4 @@
-import { Color, Theme } from './theme';
+import { BgColor, Theme } from './theme';
 
 export const getBgColor = (attempt: string, secret: string, index: number, theme: Theme): string => {
   const bgColor = getBgColorName(attempt, secret, index);
@@ -6,7 +6,7 @@ export const getBgColor = (attempt: string, secret: string, index: number, theme
   return theme.colors[bgColor];
 };
 
-export const getBgColorName = (attempt: string, secret: string, index: number): Color => {
+export const getBgColorName = (attempt: string, secret: string, index: number): BgColor => {
   if (secret[index] === attempt[index]) {
     return 'green';
   }

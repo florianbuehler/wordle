@@ -1,11 +1,11 @@
 import React from 'react';
-import { Color } from 'styles';
+import { BgColor } from 'styles';
 import { KeyboardKey } from './KeyboardKey';
 
 type Props = {
   letters: string;
   isLast: boolean;
-  keyColors: Map<string, Color>;
+  keyColors: Map<string, BgColor>;
   onKeyPress: (key: string) => void;
 };
 
