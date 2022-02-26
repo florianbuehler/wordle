@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
-import { Header, Icon, Modal } from 'semantic-ui-react';
+import { Header, Icon } from 'semantic-ui-react';
+import { Modal, ModalContent } from 'components/atoms/Modal';
 import { Cell } from 'components/WordGrid/Cell';
 
 const StyledInstructions = styled.aside`
@@ -18,15 +19,7 @@ const StyledInstructions = styled.aside`
   }
 `;
 
-const ModalHeader = styled(Modal.Header)`
-  &&& {
-    color: ${({ theme }) => theme.primary};
-    background-color: ${({ theme }) => theme.bgColor};
-    border-color: ${({ theme }) => theme.colors.lightGrey};
-  }
-`;
-
-const Content = styled(Modal.Content)`
+const Content = styled(ModalContent)`
   &&& {
     color: ${({ theme }) => theme.fontColor};
     background-color: ${({ theme }) => theme.bgColor};
@@ -72,8 +65,8 @@ export const Instructions: React.FC = () => {
         dimmer={true}
         size="small"
       >
-        <ModalHeader>How to play</ModalHeader>
         <Content>
+          <h2>How to play</h2>
           <p>
             Guess the <strong>WORDLE</strong> in six tries.
           </p>

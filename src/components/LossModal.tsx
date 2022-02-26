@@ -1,27 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Button, Modal } from 'semantic-ui-react';
+import { Button } from 'semantic-ui-react';
 import { PlayerStatus } from 'context/gameStateContext';
 import { useGameState } from 'hooks/useGameState';
+import { Modal, ModalContent } from 'components/atoms/Modal';
 import { Cell } from './WordGrid/Cell';
 
 type Props = {
   onTryAgain: () => void;
 };
 
-const Content = styled(Modal.Content)`
+const Content = styled(ModalContent)`
   &&& {
     display: flex;
     flex-direction: column;
     align-items: center;
-    color: ${({ theme }) => theme.fontColor};
-    background-color: ${({ theme }) => theme.bgColor};
-    padding: 2.5rem;
-
-    h2 {
-      color: ${({ theme }) => theme.primary};
-      margin-bottom: 2rem;
-    }
 
     #correctWord {
       display: grid;
