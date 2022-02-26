@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Button } from 'semantic-ui-react';
 import { PlayerStatus } from 'context/gameStateContext';
 import { useGameState } from 'hooks/useGameState';
+import { Button } from 'components/atoms/Button';
 import { Modal, ModalContent } from 'components/atoms/Modal';
 import { Cell } from './WordGrid/Cell';
 
@@ -59,8 +59,12 @@ export const LossModal: React.FC<Props> = ({ onTryAgain }) => {
         <p>The correct word was</p>
         <div id="correctWord">{correctWord}</div>
         <div>
-          <Button onClick={handleCloseLossModal}>Close</Button>
-          <Button onClick={onTryAgain}>Play Again</Button>
+          <Button style="primary" inverted onClick={handleCloseLossModal}>
+            Close
+          </Button>
+          <Button style="primary" onClick={onTryAgain}>
+            Play Again
+          </Button>
         </div>
       </Content>
     </Modal>

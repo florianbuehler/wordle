@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Button } from 'semantic-ui-react';
 import { PlayerStatus } from 'context/gameStateContext';
 import { useGameState } from 'hooks/useGameState';
+import { Button } from 'components/atoms/Button';
 import { Modal, ModalContent } from 'components/atoms/Modal';
 
 type Props = {
@@ -42,8 +42,12 @@ export const WinModal: React.FC<Props> = ({ onPlayAgain }) => {
       <Content>
         <h2>You Won</h2>
         <div>
-          <Button onClick={handleCloseWinModal}>Close</Button>
-          <Button onClick={onPlayAgain}>Play Again</Button>
+          <Button style="primary" inverted onClick={handleCloseWinModal}>
+            Close
+          </Button>
+          <Button style="primary" onClick={onPlayAgain}>
+            Play Again
+          </Button>
         </div>
       </Content>
     </Modal>
