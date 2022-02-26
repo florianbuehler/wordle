@@ -22,12 +22,29 @@ const calculateKeyColors = (history: string[], secret: string): Map<string, Colo
   for (const attempt of history) {
     for (let i = 0; i < attempt.length; i++) {
       const key = attempt[i];
-      const color = getBgColorName(attempt, secret, i);
-      keyColors.set(key, color);
+      const keyColor = getKeyColors(attempt, secret, i, keyColors.get(key));
+      keyColors.set(key, keyColor);
     }
   }
 
   return keyColors;
+};
+
+const getKeyColors = (attempt: string, secret: string, i: number, currentKeyColor: Color | undefined): Color => {
+  const bgColorBasedOnAttempt = getBgColorName(attempt, secret, i);
+
+  // when calculating the key color we need to take the best guess into account
+  // e.g. when the player guessed the position of a given letter correct in an earlier guess,
+  // but incorrect in the current guess we still want to color the key green
+  switch (currentKeyColor) {
+    case 'green':
+      return 'green';
+    case 'yellow':
+      return bgColorBasedOnAttempt === 'green' ? 'green' : 'yellow';
+    case 'darkGrey':
+    default:
+      return bgColorBasedOnAttempt;
+  }
 };
 
 export const Board: React.FC<Props> = ({ loadedFromHistory }) => {
