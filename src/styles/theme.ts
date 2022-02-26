@@ -4,8 +4,6 @@ export type BgColor = Extend<Color, 'yellow' | 'green' | 'lightGrey' | 'darkGrey
 
 type Colors = { [color in Color]: string };
 
-type Extend<T, U extends T> = U;
-
 export type ThemeName = 'lightTheme' | 'darkTheme';
 
 export type Theme = {
