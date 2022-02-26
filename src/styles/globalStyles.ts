@@ -4,6 +4,10 @@ import { normalize } from 'styled-normalize';
 export const GlobalStyles = createGlobalStyle`
   ${normalize}
 
+  html {
+    font-size: 16px;
+  }
+  
   body {
     box-sizing: border-box;
     font-family: 'Nunito', sans-serif;

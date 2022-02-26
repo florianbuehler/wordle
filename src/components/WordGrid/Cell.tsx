@@ -29,11 +29,15 @@ type BackProps = {
 };
 
 const Wrapper = styled.div<WrapperProps>`
-  font-size: 2.25rem;
+  font-size: 1.4rem;
   font-weight: bold;
   perspective: 1000px;
   user-select: none;
   animation: ${({ animate }) => animate && `press 100ms ease-out`};
+
+  @media (min-width: 768px) {
+    font-size: 2rem;
+  }
 
   @keyframes press {
     from {

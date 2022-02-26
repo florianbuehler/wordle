@@ -5,9 +5,14 @@ import { Attempt } from './Attempt';
 
 const StyledBoard = styled.div`
   display: grid;
-  grid-template-rows: repeat(6, 60px);
-  grid-template-columns: repeat(5, 60px);
+  grid-template-rows: repeat(6, 45px);
+  grid-template-columns: repeat(5, 45px);
   grid-gap: 8px;
+
+  @media (min-width: 768px) {
+    grid-template-rows: repeat(6, 60px);
+    grid-template-columns: repeat(5, 60px);
+  }
 `;
 
 export const WordGrid: React.FC = () => {
