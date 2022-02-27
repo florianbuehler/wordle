@@ -2,10 +2,10 @@ import React, { useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import { PlayerStatus } from 'context/gameStateContext';
 import { useGameState } from 'hooks/useGameState';
+import { fetchWordList } from 'persistence/wordList';
 import { BgColor, getBgColorName } from 'styles';
 import { WordGrid } from './WordGrid';
 import { Keyboard } from './Keyboard';
-import rawWordList from 'words.txt';
 
 type Props = {
   loadedFromHistory: boolean;
@@ -64,15 +64,12 @@ export const Board: React.FC<Props> = ({ loadedFromHistory }) => {
   const animatingRef = useRef<boolean>(false);
 
   useEffect(() => {
-    const fetchWordList = async () => {
-      const response = await fetch(rawWordList);
-      const fileContent = await response.text();
-
-      const words = fileContent.split('\n').map((word) => word.trim().toLowerCase());
-      setWordList(new Set(words));
+    const loadWordList = async () => {
+      const wordList = await fetchWordList();
+      setWordList(new Set(wordList));
     };
 
-    void fetchWordList();
+    void loadWordList();
   }, []);
 
   useEffect(() => {

@@ -9,6 +9,7 @@ import { Board } from 'components/Board';
 import { Footer } from 'components/Footer';
 import { WinModal } from 'components/WinModal';
 import { LossModal } from 'components/LossModal';
+import { fetchWordList } from './persistence/wordList';
 
 const GameLayout = styled.div`
   min-height: 100vh;
@@ -22,36 +23,59 @@ const GameLayout = styled.div`
 const App: React.FC = () => {
   const [theme, setTheme] = useState<ThemeName>('darkTheme');
   const [playerStatus, setPlayerStatus] = useState<PlayerStatus>(PlayerStatus.PlayerStillPlaying);
-  const [secret, setSecret] = useState<string>('apple');
-  const [history, setHistory] = useState<string[]>([]);
+  const [secret, setSecret] = useState<string | undefined>(undefined);
+  const [history, setHistory] = useState<string[] | undefined>(undefined);
   const [currentAttempt, setCurrentAttempt] = useState<string>('');
   const loadedRef = useRef<boolean>(false);
+  const [needsNewSecret, setNeedsNewSecret] = useState<boolean>(false);
 
+  // first we should try to load the game state from local storage
   useEffect(() => {
     if (loadedRef.current) {
       return;
     }
-
     loadedRef.current = true;
 
-    const savedHistory = loadGameState(secret);
+    const savedGameState = loadGameState();
+    const savedSecret = savedGameState.secret;
+    const savedHistory = savedGameState.history;
 
-    // if the last element in the loaded history matches the secret, the player already won
-    if (savedHistory && savedHistory[savedHistory.length - 1] === secret) {
-      setHistory([]);
-      return;
-    }
+    if (savedSecret) {
+      // if the last element in the loaded history matches the secret, the player already won
+      if (savedHistory && savedHistory[savedHistory.length - 1] === savedSecret) {
+        resetGame();
+        return;
+      }
 
-    // if the loaded history contains 6 elements, the player already lost
-    if (savedHistory?.length === 6) {
-      setHistory([]);
-      return;
-    }
+      // if the loaded history contains 6 elements and the player didn't win yet, he lost
+      if (savedHistory?.length === 6) {
+        resetGame();
+        return;
+      }
 
-    if (savedHistory) {
-      setHistory(savedHistory);
+      if (savedHistory) {
+        setHistory(savedHistory);
+        setSecret(savedSecret);
+      }
+    } else {
+      resetGame();
     }
   });
+
+  useEffect(() => {
+    if (needsNewSecret) {
+      const loadWordList = async () => {
+        const wordList = await fetchWordList();
+        const index = Math.floor(Math.random() * wordList.length);
+
+        setSecret(wordList[index]);
+      };
+
+      void loadWordList();
+
+      setNeedsNewSecret(false);
+    }
+  }, [needsNewSecret]);
 
   useEffect(() => {
     saveGameState(secret, history);
@@ -71,16 +95,16 @@ const App: React.FC = () => {
   };
 
   const resetGame = (): void => {
-    setSecret('apple'); // TODO get a new secret
     setHistory([]);
+    setNeedsNewSecret(true);
     setPlayerStatus(PlayerStatus.PlayerStillPlaying);
   };
 
   const gameState: GameState = {
     playerStatus: playerStatus,
     currentAttempt: currentAttempt,
-    history: history,
-    secret: secret,
+    history: history || [],
+    secret: secret || '',
     onPlayerStatusChanged: (newPlayerStatus) => setPlayerStatus(newPlayerStatus),
     onCurrentAttemptChanged: (newCurrentAttempt) => setCurrentAttempt(newCurrentAttempt),
     onHistoryChanged: (newHistory) => setHistory(newHistory)
