@@ -10,11 +10,19 @@ const StyledFooter = styled.footer`
   padding: 0 1.5rem;
   justify-content: space-between;
 
-  > a,
   p {
     margin: 0;
     color: ${({ theme }) => theme.primary};
     flex: 1 1 0;
+  }
+
+  a {
+    display: inline-block;
+    color: ${({ theme }) => theme.primary};
+
+    &:hover {
+      transform: scale(1.15);
+    }
   }
 
   #footer-copyright {
@@ -29,10 +37,13 @@ const StyledFooter = styled.footer`
 export const Footer: React.FC = () => {
   return (
     <StyledFooter>
-      <a href="https://github.com/florianbuehler/wordle/">
-        <Icon name="github" />
-        GitHub
-      </a>
+      <p>
+        <a href="https://github.com/florianbuehler/wordle/">
+          <Icon name="github" />
+          <span>GitHub</span>
+        </a>
+      </p>
+
       <p id="footer-copyright">&copy; Florian Bühler</p>
       <p id="footer-for-lelala">for lelala &#9825;</p>
     </StyledFooter>
