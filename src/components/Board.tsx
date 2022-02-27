@@ -65,12 +65,15 @@ export const Board: React.FC<Props> = ({ loadedFromHistory }) => {
   // const wordList = ['apple', 'piano', 'child', 'secret', 'water', 'avoid'];
 
   useEffect(() => {
-    fetch(rawWordList)
-      .then((response) => response.text())
-      .then((textString) => {
-        const words = textString.split('\n').map((word) => word.trim().toLowerCase());
-        setWordList(new Set(words));
-      });
+    const fetchWordList = async () => {
+      const response = await fetch(rawWordList);
+      const fileContent = await response.text();
+
+      const words = fileContent.split('\n').map((word) => word.trim().toLowerCase());
+      setWordList(new Set(words));
+    };
+
+    void fetchWordList();
   }, []);
 
   useEffect(() => {
