@@ -4,7 +4,7 @@ import { PlayerStatus } from 'context/gameStateContext';
 import { useGameState } from 'hooks/useGameState';
 import { Button } from 'components/atoms/Button';
 import { Modal, ModalContent } from 'components/atoms/Modal';
-import { Cell } from './WordGrid/Cell';
+import { Cell } from './Board/WordGrid/Cell';
 
 type Props = {
   onTryAgain: () => void;

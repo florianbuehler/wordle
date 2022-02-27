@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { toast } from 'react-toastify';
 import styled from 'styled-components';
 import { PlayerStatus } from 'context/gameStateContext';
 import { useGameState } from 'hooks/useGameState';
@@ -117,7 +118,8 @@ export const Board: React.FC<Props> = ({ loadedFromHistory }) => {
         return;
       }
       if (!wordList.has(currentAttempt)) {
-        alert('Not in my thesaurus');
+        toast.error('Not in my thesaurus');
+        // toast.error('Not in my thesaurus');
         return;
       }
 

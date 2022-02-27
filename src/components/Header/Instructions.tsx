@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Header, Icon } from 'semantic-ui-react';
 import { Modal, ModalContent } from 'components/atoms/Modal';
-import { Cell } from 'components/WordGrid/Cell';
+import { Cell } from 'components/Board/WordGrid/Cell';
 
 const StyledInstructions = styled.aside`
   position: absolute;

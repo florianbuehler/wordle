@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { ToastContainer } from 'components/atoms/ToastContainer';
 import styled, { ThemeProvider } from 'styled-components';
 import { getTheme, GlobalStyles, ThemeName } from 'styles';
 import { GameState, PlayerStatus } from 'context/gameStateContext';
@@ -113,12 +114,11 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={getTheme(theme)}>
       <GlobalStyles />
+      <ToastContainer position="top-right" autoClose={3000} />
       <GameStateProvider gameState={gameState}>
         <GameLayout>
           <Header themeName={theme} onReload={resetGame} onThemeToggled={toggleTheme} />
-          {/*<StyledGame>*/}
           <Board loadedFromHistory={loadedRef.current} />
-          {/*</StyledGame>*/}
           <Footer />
         </GameLayout>
         <WinModal onPlayAgain={resetGame} />

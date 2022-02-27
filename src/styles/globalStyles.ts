@@ -1,6 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 import { normalize } from 'styled-normalize';
 
+// library css files
+import 'react-toastify/dist/ReactToastify.css';
+
 export const GlobalStyles = createGlobalStyle`
   ${normalize}
 
