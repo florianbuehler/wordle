@@ -5,7 +5,7 @@ import { useGameState } from 'hooks/useGameState';
 import { BgColor, getBgColorName } from 'styles';
 import { WordGrid } from './WordGrid';
 import { Keyboard } from './Keyboard';
-import rawWordList from '../words.txt';
+import rawWordList from 'words.txt';
 
 type Props = {
   loadedFromHistory: boolean;
