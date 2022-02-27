@@ -62,7 +62,6 @@ export const Board: React.FC<Props> = ({ loadedFromHistory }) => {
   const [wordList, setWordList] = useState<Set<string>>(new Set());
   const [keyColors, setKeyColors] = useState<Map<string, BgColor>>(new Map<string, BgColor>());
   const animatingRef = useRef<boolean>(false);
-  // const wordList = ['apple', 'piano', 'child', 'secret', 'water', 'avoid'];
 
   useEffect(() => {
     const fetchWordList = async () => {
