@@ -5,6 +5,7 @@ import { useGameState } from 'hooks/useGameState';
 import { BgColor, getBgColorName } from 'styles';
 import { WordGrid } from './WordGrid';
 import { Keyboard } from './Keyboard';
+import rawWordList from '../words.txt';
 
 type Props = {
   loadedFromHistory: boolean;
@@ -57,9 +58,20 @@ export const Board: React.FC<Props> = ({ loadedFromHistory }) => {
     onCurrentAttemptChanged,
     onHistoryChanged
   } = useGameState();
+
+  const [wordList, setWordList] = useState<Set<string>>(new Set());
   const [keyColors, setKeyColors] = useState<Map<string, BgColor>>(new Map<string, BgColor>());
   const animatingRef = useRef<boolean>(false);
-  const wordList = ['apple', 'piano', 'child', 'secret', 'water', 'avoid'];
+  // const wordList = ['apple', 'piano', 'child', 'secret', 'water', 'avoid'];
+
+  useEffect(() => {
+    fetch(rawWordList)
+      .then((response) => response.text())
+      .then((textString) => {
+        const words = textString.split('\n').map((word) => word.trim().toLowerCase());
+        setWordList(new Set(words));
+      });
+  }, []);
 
   useEffect(() => {
     if (loadedFromHistory) {
@@ -105,7 +117,7 @@ export const Board: React.FC<Props> = ({ loadedFromHistory }) => {
       if (currentAttempt.length < 5) {
         return;
       }
-      if (!wordList.includes(currentAttempt)) {
+      if (!wordList.has(currentAttempt)) {
         alert('Not in my thesaurus');
         return;
       }
@@ -132,7 +144,7 @@ export const Board: React.FC<Props> = ({ loadedFromHistory }) => {
       onCurrentAttemptChanged(currentAttempt.slice(0, currentAttempt.length - 1));
     } else if (/^[a-z]$/.test(letter)) {
       if (currentAttempt.length < 5) {
-        onCurrentAttemptChanged(currentAttempt + letter);
+        onCurrentAttemptChanged(currentAttempt + letter.toLowerCase());
       }
     }
   };
