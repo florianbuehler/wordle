@@ -25,7 +25,7 @@ const StyledControlPanel = styled.aside`
 export const ControlPanel: React.FC<HeaderProps> = ({ themeName, onReload, onThemeToggled }) => {
   return (
     <StyledControlPanel>
-      <Icon name="redo" onClick={onReload} id="test" />
+      <Icon name="redo" onClick={onReload} />
       {themeName === 'lightTheme' ? (
         <Icon name="moon" onClick={onThemeToggled} />
       ) : (
