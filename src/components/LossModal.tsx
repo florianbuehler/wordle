@@ -63,7 +63,7 @@ export const LossModal: React.FC<Props> = ({ onTryAgain }) => {
             Close
           </Button>
           <Button style="primary" onClick={onTryAgain}>
-            Play Again
+            Try Again
           </Button>
         </div>
       </Content>
