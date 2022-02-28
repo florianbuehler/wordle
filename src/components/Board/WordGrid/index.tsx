@@ -5,8 +5,8 @@ import { Attempt } from './Attempt';
 
 const StyledBoard = styled.div`
   display: grid;
-  grid-template-rows: repeat(6, 45px);
-  grid-template-columns: repeat(5, 45px);
+  grid-template-rows: repeat(6, 55px);
+  grid-template-columns: repeat(5, 55px);
   grid-gap: 8px;
 
   @media (min-width: 768px) {

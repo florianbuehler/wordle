@@ -6,8 +6,12 @@ import { Cell } from 'components/Board/WordGrid/Cell';
 
 const StyledInstructions = styled.aside`
   position: absolute;
-  top: 20px;
+  top: 28px;
   left: 20px;
+
+  @media (min-width: 768px) {
+    top: 20px;
+  }
 
   > i {
     cursor: pointer;

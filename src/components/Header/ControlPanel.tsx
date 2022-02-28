@@ -5,12 +5,16 @@ import { HeaderProps } from './index';
 
 const StyledControlPanel = styled.aside`
   position: absolute;
-  top: 20px;
+  top: 28px;
   right: 20px;
 
   display: grid;
   grid-template-columns: repeat(2, auto);
   grid-gap: 0.75rem;
+
+  @media (min-width: 768px) {
+    top: 20px;
+  }
 
   > i {
     cursor: pointer;

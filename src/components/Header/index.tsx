@@ -19,9 +19,13 @@ const StyledHeader = styled.header`
     align-items: center;
 
     height: 100%;
-    margin: 0 25%;
+    margin: 0 10%;
     color: ${({ theme }) => theme.primary};
     border-bottom: ${({ theme }) => `2px solid ${theme.primary}`};
+
+    @media (min-width: 768px) {
+      margin: 0 25%;
+    }
   }
 `;
 

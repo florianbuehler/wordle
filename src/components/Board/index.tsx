@@ -14,8 +14,12 @@ type Props = {
 
 const StyledBoard = styled.main`
   display: grid;
-  grid-gap: 3rem;
+  grid-gap: 1.5rem;
   justify-items: center;
+
+  @media (min-width: 768px) {
+    grid-gap: 3rem;
+  }
 `;
 
 const calculateKeyColors = (history: string[], secret: string): Map<string, BgColor> => {
