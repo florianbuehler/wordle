@@ -7,11 +7,7 @@ type Props = {
   style?: 'primary';
 } & StrictButtonProps;
 
-type StyledProps = {
-  $inverted?: boolean;
-};
-
-const PrimaryButton = styled(BaseButton)<StyledProps>`
+const PrimaryButton = styled(BaseButton)`
   && {
     color: ${({ theme }) => readableColor(theme.primary, theme.colors.black, theme.colors.white, false)};
     background: ${({ theme }) => theme.primary};
@@ -23,7 +19,7 @@ const PrimaryButton = styled(BaseButton)<StyledProps>`
   }
 `;
 
-const PrimaryButtonInverted = styled(BaseButton)<StyledProps>`
+const PrimaryButtonInverted = styled(BaseButton)`
   && {
     color: ${({ theme }) => theme.primary};
     background: transparent;
@@ -37,7 +33,7 @@ const PrimaryButtonInverted = styled(BaseButton)<StyledProps>`
   }
 `;
 
-const getButtonComponent = (style: 'primary' | undefined, inverted: boolean | undefined): React.FC<Props> => {
+const getButtonComponent = (style: 'primary' | undefined, inverted: boolean | undefined) => {
   if (inverted) {
     switch (style) {
       case 'primary':
