@@ -67,13 +67,13 @@ npm run fix-eslint
 to let eslint fix it automatically where possible.
 
 
-## ✨ Production
+## 💫 Deployment
 
-Build an optimized and production ready version of the project by using
+Build an optimized and production ready version of the project with
 ```shell script
 npm run build
 ```
-The production build is located in the *./build* directory and can then be served with a static file server. E.g. by running
+The production build is located in the *./build* directory and can be served with a static file server. E.g. by running
 ```shell script
 serve -s build
 ```
