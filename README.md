@@ -54,7 +54,7 @@ To start the development server with hot reload configured, run
 ```shell script
 npm run dev
 ```
-and then navigate to `http://localhost:3000` in your Browser.
+and then navigate to `http://localhost:3000` in your browser.
 
 To help ensuring some basic formatting and code quality standards, the project has prettier and eslint configured. So you can simply use
 ```shell script
