@@ -56,7 +56,7 @@ npm run dev
 ```
 and then navigate to `http://localhost:3000` in your browser to view the latest changes.
 
-To help ensuring some basic formatting and code quality standards, the project has prettier and eslint configured. So you can simply use
+To help ensuring some basic formatting and code quality standards, the project has prettier and eslint configured. That's why you can simply use
 ```shell script
 npm run eslint
 ```
